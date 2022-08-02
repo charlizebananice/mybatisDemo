@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:名称空间
+-->
+<mapper namespace="com.charlize.mapper.StudentMapper">
+    <!--
+        数据库表的字段名称   和   实体类的属性名称若不一致则无法自动封装数据
+            解决方法
+            *起别名
+            *resultMap
+    -->
+
+
+
+<!--起别名-->
+    <!--sql片段-->
+     <!--<sql id="StudentColumn">
+        *
+    </sql>
+    <select id="selectAllStudent" resultType="Student">
+        select
+            <include refid="StudentColumn"></include>
+        from student
+    </select>
+    -->
+
+
+    <!--<select id="selectAllStudent" resultType="Student">
+        select * from student;
+    </select>
+    -->
+
+
+
+    <resultMap id="studentResultMap" type="student">
+        <result column="age" property="age"/>
+        <result column="sNo" property="sNo"/>
+    </resultMap>
+ <!--   <select id="selectAllStudent" resultMap="studentResultMap">
+        select * from student;
+    </select>
+-->
+
+    <!--
+        参数占位符
+        1.#{} ？形式，防止SQL注入
+        2.${}
+
+        特殊字符：转义字符 CDATA
+    -->
+    <select id="selectById" resultMap="studentResultMap">
+        select *
+        from student
+        where sNo = #{sNo};
+
+    </select>
+    <select id="selectByCondition" resultType="com.charlize.pojo.Student">
+        select *
+        from student
+        where age <![CDATA[
+            <
+        ]]> #{age}
+        and sName like #{sName}
+    </select>
+</mapper>
