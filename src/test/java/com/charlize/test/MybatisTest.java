@@ -80,7 +80,7 @@ public class MybatisTest {
 
         Map map = new HashMap();
         map.put("age", 30);
-        map.put("sName", "%宁%");
+        //map.put("sName", "%宁%");
 
         List<Student> students = studentMapper.selectByCondition(map);
 

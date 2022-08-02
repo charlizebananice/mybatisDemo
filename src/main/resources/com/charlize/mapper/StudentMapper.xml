@@ -57,12 +57,33 @@
         where sNo = #{sNo};
 
     </select>
-    <select id="selectByCondition" resultType="com.charlize.pojo.Student">
+    <!--<select id="selectByCondition" resultType="com.charlize.pojo.Student">
         select *
         from student
         where age <![CDATA[
             <
         ]]> #{age}
         and sName like #{sName}
+    </select>-->
+
+    <!--
+        动态SQL
+        if条件判断 test逻辑表达式
+    -->
+    <select id="selectByCondition" resultType="com.charlize.pojo.Student">
+        select *
+        from student
+        <!--where-->
+        <where>
+            <if test="age != null">
+                and age <![CDATA[
+                     <
+                 ]]> #{age}
+            </if>
+
+            <if test="sName != null and sName != ''">
+                and sName like #{sName}
+            </if>
+        </where>
     </select>
 </mapper>
